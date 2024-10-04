@@ -6,7 +6,7 @@ public class StudentList {
     public static void main(String[] args) {
 
 //		Check arguments
-        if (args == null || args.length != 1) {
+        if (args == null || args.length != 1 ) {
             System.out.println(Constants.INPUT_ARG);
             return;
         }
@@ -46,6 +46,9 @@ public class StudentList {
         } else if (args[0].contains(Constants.SHOW_COUNT)) {
             String[] words = fileContents.split(Constants.STUDENT_ENTRY_DELIMITER);
             System.out.println(words.length + Constants.WORDS_FOUND_TEXT);
+        } else {
+            System.out.println("Invalid argument: " + args[0]);
+            System.out.println(Constants.INPUT_ARG);
         }
 
         System.out.println(Constants.DATA_LOADED_TEXT);
