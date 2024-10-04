@@ -29,14 +29,20 @@ public class StudentList {
             writeToFile(Constants.FILE_NAME, ", " + word + "\nList last updated on " + formatedDate);
         } else if (args[0].contains(Constants.FIND_ENTRY)) {
             String words[] = fileContents.split(Constants.STUDENT_ENTRY_DELIMITER);
-            boolean done = false;
             String word = args[0].substring(1);
-            for (int idx = 0; idx < words.length && !done; idx++) {
-                if (words[idx].equals(word)) {
-                    System.out.println(Constants.FOUND_TEXT);
-                    done = true;
+            int indexLocation = -1;
+            for (int idx = 0; idx < words.length; idx++) {
+                if ((words[idx].trim()).equals(word.trim())) {
+                    indexLocation = idx;
+                    break;
                 }
             }
+            if(indexLocation >= 0) {
+                System.out.println("Entry " + word + " found at location : " + indexLocation);
+            } else {
+                System.out.println("Entry " + word + " does not exists");
+            }
+
         } else if (args[0].contains(Constants.SHOW_COUNT)) {
             char charArray[] = fileContents.toCharArray();
             boolean in_word = false;
