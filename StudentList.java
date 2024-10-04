@@ -44,20 +44,8 @@ public class StudentList {
             }
 
         } else if (args[0].contains(Constants.SHOW_COUNT)) {
-            char charArray[] = fileContents.toCharArray();
-            boolean in_word = false;
-            int count = 0;
-            for (char character : charArray) {
-                if (character == Constants.SPACE) {
-                    if (!in_word) {
-                        count++;
-                        in_word = true;
-                    } else {
-                        in_word = false;
-                    }
-                }
-            }
-            System.out.println(count + Constants.WORDS_FOUND_TEXT);
+            String[] words = fileContents.split(Constants.STUDENT_ENTRY_DELIMITER);
+            System.out.println(words.length + Constants.WORDS_FOUND_TEXT);
         }
 
         System.out.println(Constants.DATA_LOADED_TEXT);
