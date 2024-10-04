@@ -21,15 +21,11 @@ public class StudentList {
             }
         } else if (args[0].equals(Constants.SHOW_RANDOM)) {
             String words[] = fileContents.split(Constants.STUDENT_ENTRY_DELIMITER);
-            Random randomGenerator = new Random();
-            int randomNumber = randomGenerator.nextInt(words.length);
+            int randomNumber = new Random().nextInt(words.length);
             System.out.println(words[randomNumber]);
         } else if (args[0].contains(Constants.ADD_ENTRY)) {
             String word = args[0].substring(1);
-            Date date = new Date();
-            String dateFormatSample = Constants.DATE_FORMAT;
-            DateFormat dateFormat = new SimpleDateFormat(dateFormatSample);
-            String formatedDate = dateFormat.format(date);
+            String formatedDate = new SimpleDateFormat(Constants.DATE_FORMAT).format(new Date());
             writeToFile(Constants.FILE_NAME, ", " + word + "\nList last updated on " + formatedDate);
         } else if (args[0].contains(Constants.FIND_ENTRY)) {
             String words[] = fileContents.split(Constants.STUDENT_ENTRY_DELIMITER);
@@ -64,11 +60,9 @@ public class StudentList {
     public static String readFileContents(String fileName) {
         try {
             BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(
-                            new FileInputStream(fileName)));
-            String fileContents = bufferedReader.readLine();
-            bufferedReader.close();
-            return fileContents;
+                                            new InputStreamReader(
+                                            new FileInputStream(fileName)));
+            return bufferedReader.readLine();
         } catch (Exception e) {
             return null;
         }
@@ -77,7 +71,7 @@ public class StudentList {
     public static void writeToFile(String fileName, String data) {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(
-                    new FileWriter(fileName, true));
+                                            new FileWriter(fileName, true));
             bufferedWriter.write(data);
             bufferedWriter.close();
         } catch (Exception e) {
