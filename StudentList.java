@@ -7,46 +7,46 @@ public class StudentList {
 
 //		Check arguments
         if (args == null || args.length != 1) {
-            System.out.println("Usage: (a | r | c | +WORD | ?WORD)");
+            System.out.println(Constants.INPUT_ARG);
             return;
         }
 
-        String fileContents = readFileContents("students.txt");
-        System.out.println("Loading data ...");
+        String fileContents = readFileContents(Constants.FILE_NAME);
+        System.out.println(Constants.LOADING_DATA_TEXT);
 
-        if (args[0].equals("a")) {
-            String words[] = fileContents.split(",");
+        if (args[0].equals(Constants.SHOW_ALL)) {
+            String words[] = fileContents.split(Constants.STUDENT_ENTRY_DELIMITER);
             for (String word : words) {
                 System.out.println(word);
             }
-        } else if (args[0].equals("r")) {
-            String words[] = fileContents.split(",");
+        } else if (args[0].equals(Constants.SHOW_RANDOM)) {
+            String words[] = fileContents.split(Constants.STUDENT_ENTRY_DELIMITER);
             Random randomGenerator = new Random();
             int randomNumber = randomGenerator.nextInt(words.length);
             System.out.println(words[randomNumber]);
-        } else if (args[0].contains("+")) {
+        } else if (args[0].contains(Constants.ADD_ENTRY)) {
             String word = args[0].substring(1);
             Date date = new Date();
-            String dateFormatSample = "dd/mm/yyyy-hh:mm:ss a";
+            String dateFormatSample = Constants.DATE_FORMAT;
             DateFormat dateFormat = new SimpleDateFormat(dateFormatSample);
             String formatedDate = dateFormat.format(date);
-            writeToFile("students.txt", ", " + word + "\nList last updated on " + formatedDate);
-        } else if (args[0].contains("?")) {
-            String words[] = fileContents.split(",");
+            writeToFile(Constants.FILE_NAME, ", " + word + "\nList last updated on " + formatedDate);
+        } else if (args[0].contains(Constants.FIND_ENTRY)) {
+            String words[] = fileContents.split(Constants.STUDENT_ENTRY_DELIMITER);
             boolean done = false;
             String word = args[0].substring(1);
             for (int idx = 0; idx < words.length && !done; idx++) {
                 if (words[idx].equals(word)) {
-                    System.out.println("We found it!");
+                    System.out.println(Constants.FOUND_TEXT);
                     done = true;
                 }
             }
-        } else if (args[0].contains("c")) {
+        } else if (args[0].contains(Constants.SHOW_COUNT)) {
             char charArray[] = fileContents.toCharArray();
             boolean in_word = false;
             int count = 0;
             for (char character : charArray) {
-                if (character == ' ') {
+                if (character == Constants.SPACE) {
                     if (!in_word) {
                         count++;
                         in_word = true;
@@ -55,10 +55,10 @@ public class StudentList {
                     }
                 }
             }
-            System.out.println(count + " word(s) found " + charArray.length);
+            System.out.println(count + Constants.WORDS_FOUND_TEXT);
         }
 
-        System.out.println("Data Loaded.");
+        System.out.println(Constants.DATA_LOADED_TEXT);
     }
 
     public static String readFileContents(String fileName) {
